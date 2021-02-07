@@ -5,4 +5,4 @@ Example code to turn a [Stage Hacks FADER_8](https://www.stagehacks.com/store/p/
 - Sends MIDI Control Change messages on Channel 1, Controls 0-7
 - Responds to MIDI Control Change messages on Channel 16, Controls 0-7
 
-This code will not compile unless the Board Type is set to MIDI. In Arduino/Teensyduino software, navigate to *Tools* > *USB Type* and select *MIDI*
+This code will not compile unless the Board Type is set to MIDI. In Arduino/Teensyduino software, navigate to _Tools_ > _USB Type_ and select _MIDI_
