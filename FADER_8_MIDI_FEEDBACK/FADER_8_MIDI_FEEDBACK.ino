@@ -1,12 +1,12 @@
 #include <ResponsiveAnalogRead.h>
 #include <TeensyThreads.h>
 
-//     _____ ______ _______ _______ _____ _   _  _____  _____ 
-//    / ____|  ____|__   __|__   __|_   _| \ | |/ ____|/ ____|
-//   | (___ | |__     | |     | |    | | |  \| | |  __| (___  
-//    \___ \|  __|    | |     | |    | | | . ` | | |_ |\___ \.
-//    ____) | |____   | |     | |   _| |_| |\  | |__| |____) |
-//   |_____/|______|  |_|     |_|  |_____|_| \_|\_____|_____/.
+
+// MIDI SETTINGS
+#define MIDI_SEND_CHANNEL 1
+#define MIDI_LISTEN_CHANNEL 16
+byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7}; // DEFAULT
+//byte MIDI_CONTROLS[8] = {1, 11, 19, 21, 16, 17, 10, 7}; // SPITFIRE AUDIO PLUGINS
 
 
 // FADER TRIM SETTINGS
@@ -15,14 +15,13 @@
 int faderTrimTop[8] = {TOP, TOP, TOP, TOP, TOP, TOP, TOP, TOP}; // ADJUST THIS IF A SINGLE FADER ISN'T READING 255 AT THE TOP OF ITS TRAVEL
 int faderTrimBottom[8] = {BOT, BOT, BOT, BOT, BOT, BOT, BOT, BOT}; // ADJUST THIS IF A SINGLE FADER ISN'T READING 0 AT THE BOTTOM OF ITS TRAVEL
 
+
+// MOTOR SETTINGS
 #define MOTOR_MIN_SPEED 180
 #define MOTOR_MAX_SPEED 250
 #define TOUCH_THRESHOLD 30
 
-#define MIDI_LISTEN_CHANNEL 16
-
 #define DEBUG false
-
 
 
 
@@ -31,7 +30,7 @@ elapsedMillis sinceMoved[8];
 elapsedMillis sinceSent[8];
 byte lastSentValue[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 byte mode[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-int target[8] = {128, 128, 128, 128, 128, 128, 128, 128};
+int target[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 int previous[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 byte readPins[8] = {A9, A8, A7, A6, A5, A4, A3, A2};
 static byte MOTOR_PINS_A[8] = {0, 2, 4, 6, 8, 10, 24, 28};
@@ -58,7 +57,7 @@ ResponsiveAnalogRead faders[8] = {
 // |_|/_/    \_\_____/|______|_|  \_\ |______|   \/   |______|_| \_|  |_|   
 
 void faderHasMoved(byte i) {
-  usbMIDI.sendControlChange (i, getFaderValue(i)/2, 1);
+  usbMIDI.sendControlChange (MIDI_CONTROLS[i], getFaderValue(i)/2, MIDI_SEND_CHANNEL);
 }
 
 void onControlChange(byte channel, byte fader, byte value) {
