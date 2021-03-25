@@ -1,5 +1,11 @@
 // FADER_8 VERSION 1.0
 
+// Ensure Board Type (Tools > Board Type) is set to Teensyduino Teensy 4.1
+#include <TeensyThreads.h>
+#include <NativeEthernet.h>
+#include <ResponsiveAnalogRead.h>
+
+
 #define REST 0
 #define MOTOR 1
 #define TOUCH 2
@@ -112,10 +118,45 @@ void faderSetup() {
     analogWriteFrequency(MOTOR_PINS_B[i], 18000);
     faders[i].setActivityThreshold(TOUCH_THRESHOLD);
   }
+  
+  Serial.println("Starting Network Thread...");
+  networkThreadID = threads.addThread(networkInit);
 }
+
+
+#define ETHERNET_OFFLINE 0
+#define ETHERNET_ONLINE_DHCP 1
+#define ETHERNET_ONLINE_STATIC 2
+byte ethernetStatus = 0;
+
+void networkInit() {
+  Serial.println("Testing Ethernet Connection...");
+
+  IPAddress SELF_IP(IP_ADDRESS[0], IP_ADDRESS[1], IP_ADDRESS[2], IP_ADDRESS[3]);
+
+  Ethernet.begin(MAC_ADDRESS, SELF_IP);
+  ethernetStatus = ETHERNET_ONLINE_STATIC;
+
+  Serial.print("Ethernet Status: ");
+  Serial.println(Ethernet.linkStatus());
+
+  if (Ethernet.linkStatus() == LinkON) {
+    ethernetSetup();
+  } else {
+    Serial.println("Ethernet is not connected.");
+  }
+
+  threads.suspend(networkThreadID);
+
+}
+
 
 void setFaderTarget(byte fader, byte value){
   target[fader] = value;
+}
+
+byte getEthernetStatus(){
+  return ethernetStatus;
 }
 
 int getFaderValue(byte fader) {
