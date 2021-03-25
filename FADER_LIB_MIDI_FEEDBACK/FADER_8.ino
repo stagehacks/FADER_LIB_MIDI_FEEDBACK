@@ -5,11 +5,9 @@
 #include <NativeEthernet.h>
 #include <ResponsiveAnalogRead.h>
 
-
 #define REST 0
 #define MOTOR 1
 #define TOUCH 2
-
 
 elapsedMillis sinceBegin = 0;
 elapsedMillis sinceMoved[8];
@@ -106,7 +104,7 @@ void faderSetup() {
   if(DEBUG){
     delay(2000);
   }
-  Serial.println("###############################");
+  Serial.println("########  FADER_8  ########");
   Serial.println("Setting up Faders...");
 
   for (byte i = 0; i < 8; i++) {

@@ -1,9 +1,3 @@
-// MIDI SETTINGS
-#define MIDI_SEND_CHANNEL 1
-#define MIDI_LISTEN_CHANNEL 16
-byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7}; // DEFAULT
-//byte MIDI_CONTROLS[8] = {1, 11, 19, 21, 16, 17, 10, 7}; // SPITFIRE AUDIO PLUGINS
-
 // FADER TRIM SETTINGS
 #define TOP 960
 #define BOT 70
@@ -18,6 +12,12 @@ int faderTrimBottom[8] = {BOT, BOT, BOT, BOT, BOT, BOT, BOT, BOT}; // ADJUST THI
 // ETHERNET SETTINGS
 byte MAC_ADDRESS[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 int IP_ADDRESS[] = {192, 168, 1, 130};
+
+// MIDI SETTINGS
+#define MIDI_SEND_CHANNEL 1
+#define MIDI_LISTEN_CHANNEL 16
+byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7}; // DEFAULT
+//byte MIDI_CONTROLS[8] = {1, 11, 19, 21, 16, 17, 10, 7}; // SPITFIRE AUDIO PLUGINS
 
 
 #define DEBUG true
