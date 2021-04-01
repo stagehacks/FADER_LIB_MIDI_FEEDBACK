@@ -5,9 +5,8 @@ int faderTrimTop[8] = {TOP, TOP, TOP, TOP, TOP, TOP, TOP, TOP}; // ADJUST THIS I
 int faderTrimBottom[8] = {BOT, BOT, BOT, BOT, BOT, BOT, BOT, BOT}; // ADJUST THIS IF A SINGLE FADER ISN'T READING 0 AT THE BOTTOM OF ITS TRAVEL
 
 // MOTOR SETTINGS
-#define MOTOR_MIN_SPEED 180
-#define MOTOR_MAX_SPEED 255
-#define TOUCH_THRESHOLD 16
+#define MOTOR_MAX_SPEED 210
+#define TOUCH_THRESHOLD 20
 
 // ETHERNET SETTINGS
 byte MAC_ADDRESS[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -40,9 +39,9 @@ void ethernetSetup(){
 
 void faderHasMoved(byte i) {
   // Ensure USB Type (Tools > USB Type) is set to MIDI
-  usbMIDI.sendControlChange (MIDI_CONTROLS[i], getFaderValue(i) / 2, MIDI_SEND_CHANNEL);
+  usbMIDI.sendControlChange (MIDI_CONTROLS[i], getFaderValue(i) / 4, MIDI_SEND_CHANNEL);
 }
 
 void onControlChange(byte channel, byte fader, byte value) {
-  setFaderTarget(fader, value * 2);
+  setFaderTarget(fader, value * 4);
 }
