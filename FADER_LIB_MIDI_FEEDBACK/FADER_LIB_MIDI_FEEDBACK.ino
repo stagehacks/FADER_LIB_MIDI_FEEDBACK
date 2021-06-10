@@ -15,22 +15,33 @@ int IP_ADDRESS[] = {192, 168, 1, 130};
 // MIDI SETTINGS
 #define MIDI_SEND_CHANNEL 1
 #define MIDI_LISTEN_CHANNEL 16
-byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7}; // DEFAULT
-//byte MIDI_CONTROLS[8] = {1, 11, 19, 21, 16, 17, 10, 7}; // SPITFIRE AUDIO PLUGINS
+byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
+#define FADER_COUNT 4
+#define BUTTONS_ENABLED false
 
-#define DEBUG true
+#define DEBUG false
 
 
 void loop() {
   faderLoop();
   usbMIDI.read(MIDI_LISTEN_CHANNEL);
+
+  if(BUTTONS_ENABLED){
+    buttonLoop();
+  }
+  
 }
 
 void setup() {
   Serial.begin(9600);
   faderSetup();
   usbMIDI.setHandleControlChange(onControlChange);
+
+  if(BUTTONS_ENABLED){
+    buttonSetup();
+  }
+  
 }
 
 void ethernetSetup(){
