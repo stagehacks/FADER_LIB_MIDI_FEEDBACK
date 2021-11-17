@@ -17,7 +17,7 @@ int IP_ADDRESS[] = {192, 168, 1, 130};
 #define MIDI_LISTEN_CHANNEL 16
 byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
-#define FADER_COUNT 4
+#define FADER_COUNT 8
 #define BUTTONS_ENABLED false
 
 #define DEBUG false
