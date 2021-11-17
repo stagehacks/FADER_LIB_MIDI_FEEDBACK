@@ -1,4 +1,4 @@
-// FADER_LIB VERSION 1.2
+// FADER_LIB VERSION 1.3
 
 // Ensure Board Type (Tools > Board Type) is set to Teensyduino Teensy 4.1
 #include <TeensyThreads.h>
