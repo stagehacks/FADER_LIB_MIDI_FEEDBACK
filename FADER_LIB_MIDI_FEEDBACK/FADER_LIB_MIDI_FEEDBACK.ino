@@ -14,7 +14,7 @@ int IP_ADDRESS[] = {192, 168, 1, 130};
 
 // MIDI SETTINGS
 #define MIDI_SEND_CHANNEL 1
-#define MIDI_LISTEN_CHANNEL 16
+#define MIDI_LISTEN_CHANNEL 1
 byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
 #define FADER_COUNT 8
@@ -25,7 +25,7 @@ byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
 void loop() {
   faderLoop();
-  usbMIDI.read(MIDI_LISTEN_CHANNEL);
+  usbMIDI.read(MIDI_LISTEN_CHANNEL); // Ensure USB Type (Tools > USB Type) is set to MIDI
 
   if(BUTTONS_ENABLED){
     buttonLoop();
@@ -49,7 +49,6 @@ void ethernetSetup(){
 }
 
 void faderHasMoved(byte i) {
-  // Ensure USB Type (Tools > USB Type) is set to MIDI
   usbMIDI.sendControlChange (MIDI_CONTROLS[i], getFaderValue(i) / 4, MIDI_SEND_CHANNEL);
 }
 
