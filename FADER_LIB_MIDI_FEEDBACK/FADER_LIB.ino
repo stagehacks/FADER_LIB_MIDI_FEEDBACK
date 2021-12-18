@@ -1,7 +1,6 @@
 // FADER_LIB VERSION 1.3
 
-// Ensure Board Type (Tools > Board Type) is set to Teensyduino Teensy 4.1
-#include <TeensyThreads.h>
+#include <TeensyThreads.h> // Ensure Board Type (Tools > Board Type) is set to Teensyduino / Teensy 4.1
 #include <NativeEthernet.h>
 #include <ResponsiveAnalogRead.h>
 #include <Bounce2.h>
@@ -21,8 +20,8 @@ int previous[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 
 // Default motor power for early 2021 faders = 170
-// Default motor power for late 2021 faders = 174
-byte minMotorPower[8] = {174, 174, 174, 174, 174, 174, 174, 174};
+// Default motor power for late 2021 faders = 190
+byte minMotorPower[8] = {190, 190, 190, 190, 190, 190, 190, 190};
 
 
 byte readPins[8] = {A9, A8, A7, A6, A5, A4, A3, A2};
