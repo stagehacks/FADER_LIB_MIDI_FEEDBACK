@@ -6,6 +6,16 @@ int faderTrimBottom[8] = {BOT, BOT, BOT, BOT, BOT, BOT, BOT, BOT}; // ADJUST THI
 
 // MOTOR SETTINGS
 #define MOTOR_MAX_SPEED 210
+
+// Default MIN_SPEED for Main Board version 1.0-1.2 = 170
+// Default MIN_SPEED for Main Board version 1.3 = 190
+// Default MIN_SPEED for Main Board version 1.4 = 145
+#define MOTOR_MIN_SPEED 140
+
+// Default MOTOR_FREQUENCY for 1.0-1.3 = 18000
+// Default MOTOR_FREQUENCY for 1.4+ = 256
+#define MOTOR_FREQUENCY 256
+
 #define TOUCH_THRESHOLD 20
 
 // ETHERNET SETTINGS
@@ -18,7 +28,6 @@ int IP_ADDRESS[] = {192, 168, 1, 130};
 byte MIDI_CONTROLS[8] = {0, 1, 2, 3, 4, 5, 6, 7};
 
 #define FADER_COUNT 8
-#define BUTTONS_ENABLED false
 
 #define DEBUG false
 
@@ -27,22 +36,14 @@ void loop() {
   faderLoop();
   usbMIDI.read(MIDI_LISTEN_CHANNEL); // Ensure USB Type (Tools > USB Type) is set to MIDI
 
-  if(BUTTONS_ENABLED){
-    buttonLoop();
-  }
-  
 }
 
-void setup() {
+void setup() {  
   Serial.begin(9600);
   faderSetup();
   usbMIDI.setHandleControlChange(onControlChange);
-
-  if(BUTTONS_ENABLED){
-    buttonSetup();
-  }
   
-}
+} 
 
 void ethernetSetup(){
   //
